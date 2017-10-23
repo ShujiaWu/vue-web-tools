@@ -12,6 +12,8 @@ import filters from './filters/index'
 import SessionStorage from '@/utils/sessionStorage'
 import LocalStorage from '@/utils/localStorage'
 
+// import TreeView from 'vue-json-tree-view'
+
 // import Viewer from 'v-viewer'
 
 // 样式
@@ -23,6 +25,7 @@ Vue.config.productionTip = false
 
 // 使用iView
 Vue.use(iView)
+// Vue.use(TreeView)
 
 // Vue.use(Viewer)
 

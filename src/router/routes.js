@@ -1,9 +1,12 @@
+import WebConsoleMsg from './routes/web-console-msg'
 export default [
   {
     path: '/',
     name: 'Home',
+    redirect: '/dashboard',
     meta: {
-      title: '主页'
+      title: '主页',
+      hidden: true
     },
     component: resolve => require(['@/pages/Main'], resolve),
     children: [
@@ -22,27 +25,24 @@ export default [
           title: '样例'
         },
         component: resolve => require(['@/pages/example/Example'], resolve)
-      },
-      {
-        path: '/no-permission',
-        name: 'NoPermission',
-        meta: {
-          title: '错误'
-        },
-        component: resolve => require(['@/pages/error/NoPermission'], resolve)
-      },
-      {
-        path: '/404',
-        name: '404',
-        meta: {
-          title: '错误'
-        },
-        component: resolve => require(['@/pages/error/404'], resolve)
       }
     ]
   },
+  WebConsoleMsg,
   {
-    path: '*',
-    redirect: '/404'
+    path: '/401',
+    name: '401',
+    meta: {
+      title: '401'
+    },
+    component: resolve => require(['@/pages/error/401'], resolve)
+  },
+  {
+    path: '/*',
+    name: '404',
+    meta: {
+      title: '404'
+    },
+    component: resolve => require(['@/pages/error/404'], resolve)
   }
 ]

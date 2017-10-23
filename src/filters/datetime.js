@@ -20,6 +20,8 @@ export default (value, formater) => {
     minutes = minutes < 10 ? '0' + minutes : minutes
     let seconds = dateTime.getSeconds()
     seconds = seconds < 10 ? '0' + seconds : seconds
+    let mSeconds = dateTime.getMilliseconds()
+    mSeconds = mSeconds < 100 ? '0' + mSeconds : (mSeconds < 10) ? '00' + mSeconds : mSeconds
     if (formater) {
       return formater.replace('yyyy', fullYear)
         .replace('MM', month)
@@ -27,6 +29,7 @@ export default (value, formater) => {
         .replace('HH', hours)
         .replace('mm', minutes)
         .replace('ss', seconds)
+        .replace('S', mSeconds)
     } else {
       return value
     }

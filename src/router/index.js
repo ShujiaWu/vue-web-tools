@@ -8,20 +8,20 @@ import * as MutationsType from '@/store/mutation-types'
 
 Vue.use(Router)
 
-let routesMap = {}
-let getRouttes = (object) => {
-  for (let key in object) {
-    if (object.hasOwnProperty(key)) {
-      let element = object[key]
-      routesMap[element.name] = element
-      if (element.children) {
-        getRouttes(element.children)
-      }
-    }
-  }
-}
-getRouttes(routes)
-store.commit(MutationsType.ROUTES_MAP, routesMap)
+// let routesMap = {}
+// let getRouttes = (object) => {
+//   for (let key in object) {
+//     if (object.hasOwnProperty(key)) {
+//       let element = object[key]
+//       routesMap[element.name] = element
+//       if (element.children) {
+//         getRouttes(element.children)
+//       }
+//     }
+//   }
+// }
+// getRouttes(routes)
+// store.commit(MutationsType.ROUTES_MAP, routesMap)
 
 let router = new Router({
   routes: routes
@@ -48,10 +48,27 @@ router.afterEach(route => {
 
   // 面包屑
   let breadcurmb = []
-  if (route.name !== 'Home') {
-    breadcurmb.push(store.state.routes.map['Home'])
+  // 如果不是主页，则加入主页
+  if (route.name !== 'Dashboard') {
+    breadcurmb.push({
+      meta: {
+        title: '主页'
+      },
+      name: 'Home',
+      path: '/'
+    })
   }
-  breadcurmb.push(store.state.routes.map[route.name])
+  // 遍历页面匹配路由，加入到面包屑中
+  route.matched.forEach(function (element) {
+    // console.log(element)
+    if (!element.meta.hidden) {
+      breadcurmb.push({
+        meta: element.meta,
+        name: element.name,
+        path: element.meta.disabled ? undefined : (element.path === '') ? '/' : element.path
+      })
+    }
+  }, this)
 
   store.commit(MutationsType.PAGE_BREADCRUMB_CHANGE, breadcurmb)
 })

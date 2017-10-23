@@ -6,7 +6,7 @@ export default {
     let params = {
       version: 'v1'
     }
-    return axios.get('/mock/page-navigator/menu.json', {
+    return axios.get('api/page-navigator', {
       params
     }).then(result => {
       return result
