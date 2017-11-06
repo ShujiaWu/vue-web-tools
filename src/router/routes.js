@@ -1,4 +1,5 @@
 import WebConsoleMsg from './routes/web-console-msg'
+import FnsTester from './routes/fns-tester'
 export default [
   {
     path: '/',
@@ -29,6 +30,7 @@ export default [
     ]
   },
   WebConsoleMsg,
+  FnsTester,
   {
     path: '/401',
     name: '401',
